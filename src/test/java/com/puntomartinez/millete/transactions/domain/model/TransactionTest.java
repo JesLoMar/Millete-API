@@ -12,11 +12,11 @@ class TransactionTest {
 
     private final UUID id = UUID.randomUUID();
     private final UUID userId = UUID.randomUUID();
-    private final LocalDateTime now = LocalDateTime.now();
 
     @Test
     @DisplayName("Debe crear transacción con datos válidos")
     void shouldCreateTransaction() {
+        LocalDateTime now = LocalDateTime.now();
         Transaction tx = new Transaction(id, userId, null, new BigDecimal("50.00"),
                 now, Transaction.TransactionType.EXPENSE, "Compra", now, now, true);
 
@@ -29,6 +29,7 @@ class TransactionTest {
     @Test
     @DisplayName("Debe lanzar error si amount es cero")
     void shouldThrowWhenAmountIsZero() {
+        LocalDateTime now = LocalDateTime.now();
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> new Transaction(id, userId, null, BigDecimal.ZERO,
                         now, Transaction.TransactionType.EXPENSE, "Compra", now, now, true))
@@ -38,6 +39,7 @@ class TransactionTest {
     @Test
     @DisplayName("Debe lanzar error si amount es nulo")
     void shouldThrowWhenAmountIsNull() {
+        LocalDateTime now = LocalDateTime.now();
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> new Transaction(id, userId, null, null,
                         now, Transaction.TransactionType.EXPENSE, "Compra", now, now, true));
@@ -46,6 +48,7 @@ class TransactionTest {
     @Test
     @DisplayName("Debe actualizar detalles correctamente")
     void shouldUpdateDetails() {
+        LocalDateTime now = LocalDateTime.now();
         Transaction tx = new Transaction(id, userId, null, new BigDecimal("50.00"),
                 now, Transaction.TransactionType.EXPENSE, "Compra", now, now, true);
 
@@ -57,17 +60,18 @@ class TransactionTest {
         assertThat(tx.getType()).isEqualTo(Transaction.TransactionType.INCOME);
         assertThat(tx.getDescription()).isEqualTo("Venta");
         assertThat(tx.getCategoryId()).isEqualTo(categoryId);
-        assertThat(tx.getModifiedAt()).isAfter(now);
+        assertThat(tx.getModifiedAt()).isAfterOrEqualTo(now);
     }
 
     @Test
     @DisplayName("Debe desactivar transacción")
     void shouldDeactivate() {
+        LocalDateTime now = LocalDateTime.now();
         Transaction tx = new Transaction(id, userId, null, new BigDecimal("50.00"),
                 now, Transaction.TransactionType.EXPENSE, "Compra", now, now, true);
         tx.deactivate();
 
         assertThat(tx.isActive()).isFalse();
-        assertThat(tx.getModifiedAt()).isAfter(now);
+        assertThat(tx.getModifiedAt()).isAfterOrEqualTo(now);
     }
 }

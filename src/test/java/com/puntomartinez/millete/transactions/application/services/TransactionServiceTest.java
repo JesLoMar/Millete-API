@@ -76,6 +76,8 @@ class TransactionServiceTest {
     void shouldFindAllByUserId() {
         Transaction tx1 = mock(Transaction.class);
         Transaction tx2 = mock(Transaction.class);
+        when(tx1.isActive()).thenReturn(true);
+        when(tx2.isActive()).thenReturn(true);
         when(transactionRepository.findAllByUserId(userId)).thenReturn(List.of(tx1, tx2));
 
         List<Transaction> result = transactionService.findAllByUserId(userId);

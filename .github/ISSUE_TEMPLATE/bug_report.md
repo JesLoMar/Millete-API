@@ -1,0 +1,39 @@
+---
+name: Bug report
+about: Create a report to help us improve
+title: ''
+labels: ''
+assignees: ''
+
+---
+
+name: Bug Report
+description: Report a bug
+title: "[BUG]: "
+labels: ["bug"]
+assignees: []
+body:
+  - type: textarea
+    attributes:
+      label: Describe the bug
+      description: What happened and what did you expect
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      description: 1. Go to... 2. Click on...
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Version
+      description: Millete API version
+      placeholder: v0.0.1
+  - type: dropdown
+    attributes:
+      label: Environment
+      options:
+        - Docker
+        - Local (start-dev.sh)
+        - Production (start-prod.sh)

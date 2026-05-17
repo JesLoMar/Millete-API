@@ -1,0 +1,65 @@
+# =============================================
+# MAVEN
+# =============================================
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# =============================================
+# CREDENCIALES Y CONFIGURACIONES SENSIBLES
+# =============================================
+.env
+.env.docker
+.env.prod
+application-prod.yml.local
+**/credentials.yml
+*.pem
+*.key
+
+# =============================================
+# LOGS Y TEMPORALES
+# =============================================
+*.log
+logs/
+*.tmp
+*.bak
+*~
+
+# =============================================
+# IDEs
+# =============================================
+
+## STS
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+## IntelliJ IDEA
+.idea
+*.iws
+*.iml
+*.ipr
+
+## NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+## VS Code
+.vscode/
+
+# =============================================
+# SISTEMA OPERATIVO
+# =============================================
+.DS_Store
+Thumbs.db

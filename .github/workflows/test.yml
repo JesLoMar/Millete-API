@@ -1,0 +1,52 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: millete_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build and test
+        run: ./mvnw verify
+        env:
+          DATABASE_URL: jdbc:postgresql://localhost:5432/millete_test
+          DATABASE_USER: postgres
+          DATABASE_PASSWORD: test
+          JWT_SECRET: testSecretKeyThatIsAtLeast256BitsLongForTestingPurposes
+          MAIL_HOST: localhost
+          MAIL_PORT: 587
+          MAIL_USERNAME: test
+          MAIL_PASSWORD: test
+          MAIL_FROM: test@localhost
+          FRONTEND_URL: http://localhost:5173
